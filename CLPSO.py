@@ -7,7 +7,6 @@
 """ Research paper: Two-Phase ESO-CLPSO Method for the Optimal Design of Structures 
 with Discrete Steel Sections (2021) """
 # ***************************************************************************************#
-
 import random
 import math
 import numpy as np
@@ -170,22 +169,3 @@ class CLPSO():
 initial=[-1, 1]   # initial starting location [x1,x2...]
 bounds=[(-2.08, 2.08),(-2.08, 2.08)] 
 t = CLPSO(func1, initial, bounds, num_particles=10, maxiter=500)
-
-"""# %%
-xx_1      = np.linspace(-2,2,50)
-xx_2      = np.linspace(-2,2,50)
-[X1,X2] = np.meshgrid(xx_1,xx_2)
-xnod    = np.array([X1,X2])
-ZX      = func1(xnod)
-from matplotlib import cm
-from mpl_toolkits.mplot3d import Axes3D
-# Create a surface plot and projected filled contour plot under it.
-fig = plt.figure()
-ax = fig.gca(projection='3d')
-# ax.scatter3D(t.best_position[0],t.best_position[1], t.global_best_all_iteration[-1], color='blue', s=50)
-ax.scatter3D(np.array(t.pos_best_g_record)[:,0], np.array(t.pos_best_g_record)[:,1], np.array(t.err_best_g_record)[:], color='red', s=50)
-ax.plot_wireframe(X1, X2, ZX, color='black', linewidth=0.5)
-# ax.plot_surface(X1, X2, ZX, rstride=3, cstride=3, linewidth=1, antialiased=True, cmap=cm.hsv)
-# cset = ax.contourf(X1, X2, ZX, zdir='z', offset=-0.1, cmap=plt.cm.bone) # )# cmap=cm.viridis) offset=-0.15
-#ax.contour(X1,X2,ZX,[0], colors="r", linewidths=4)
-plt.show()"""
