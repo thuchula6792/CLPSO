@@ -170,9 +170,6 @@ class CLPSO():
 initial=[-1, 1]   # initial starting location [x1,x2...]
 bounds=[(-2.08, 2.08),(-2.08, 2.08)] 
 t = CLPSO(func1, initial, bounds, num_particles=10, maxiter=500)
-# %%
-# print(t.err_best_g_record))
-#print(np.array(t.pos_best_g_record)[:,1])
 
 """# %%
 xx_1      = np.linspace(-2,2,50)
