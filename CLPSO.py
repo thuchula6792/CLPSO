@@ -2,6 +2,7 @@
 # ***************************************************************************************#
 # Author:  Ph.D Candidate, Thu Huynh Van
 # Advisor: Assist. Prof. Sawekchai Tangaramvong 
+# Emails: thuxd11@gmail.com, Sawekchai.T@chula.ac.th
 #          Applied Mechanics and Structures Research Unit, Department of Civil Engineering, 
 #          Chulalongkorn University
 """ Research paper: Two-Phase ESO-CLPSO Method for the Optimal Design of Structures 
