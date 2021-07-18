@@ -18,7 +18,7 @@ import scipy
 import itertools
 
 #--- COST FUNCTION 
-# function we are attempting to optimize (minimize)
+# Function we are attempting to optimize (minimize)
 def func1(x):
      return 100*(x[1]-x[0]**2)**2 + (1-x[0])**2
  
@@ -37,7 +37,7 @@ class Particle:
             self.position_i.append(random.uniform(-1,1)*(bounds[i][1]-bounds[i][0])+bounds[i][0])
         self.pos_best_i_record.append(self.position_i)
         
-    # evaluate current fitness
+    # Evaluate current fitness
     def evaluate(self, costFunc):
         self.err_i = costFunc(self.position_i)  
         # check to see if the current position is an individual best
@@ -45,7 +45,7 @@ class Particle:
             self.pos_best_i = self.position_i   
             self.err_best_i = self.err_i     
             
-    # update new particle velocity
+    # Update new particle velocity
     def update_velocity(self, pbest_f, pos_best_g, bounds, mdblI):
         c1=2        # cognative constant
         c2=2        # social constant
@@ -57,14 +57,14 @@ class Particle:
             self.velocity_i[i] = mdblI*self.velocity_i[i] + vel_cognitive + vel_social
             self.velocity_i[i] = np.where(self.velocity_i[i] >= 0.2*(bounds[i][1]-bounds[i][0]), 0.2*(bounds[i][1]-bounds[i][0]), self.velocity_i[i]).tolist()
     
-    # update the particle position based off new velocity updates
+    # Update the particle position based off new velocity updates
     def update_position(self, bounds):
         for i in range(0, num_dimensions):
             self.position_i[i] = self.position_i[i] + self.velocity_i[i]
-            # adjust maximum position if necessary
+            # Adjust maximum position if necessary
             if self.position_i[i] > bounds[i][1]:
                 self.position_i[i] = bounds[i][1]
-            # adjust minimum position if neseccary
+            # Adjust minimum position if neseccary
             if self.position_i[i] < bounds[i][0]:
                 self.position_i[i] = bounds[i][0]
                 
@@ -81,7 +81,7 @@ class CLPSO():
         bi1 = 0; self.bi = [0]*num_dimensions; self.mintSinceLastChange = [0]*num_particles
         mintNuC = 5; mdblI = 0; self.best_position = 0
         
-        # Calculate learning probability Pc
+        # Determine learning probability Pc
         t=np.linspace(0,5,num_particles)
         swarm=[]
         for i in range(0,num_particles):
@@ -139,13 +139,13 @@ class CLPSO():
                          self.pbest_f_1[j,k] = self.pos_best_g_record_1[index_1, k]
             self.pbest_f = self.pbest_f_1.tolist()
             
-            # cycle through swarm and update velocities and position
+            # Cycle through swarm and update velocities and position
             mdblI = 0.9 - (0.9 - 0.4) * i / maxiter
             for j in range(0,num_particles):
                 swarm[j].update_velocity(self.pbest_f[j], self.pos_best_g, bounds, mdblI)
                 swarm[j].update_position(bounds)
                 
-            # cycle through particles in swarm and evaluate fitness
+            # Cycle through particles in swarm and evaluate fitness
             for j in range(0,num_particles):
                 swarm[j].evaluate(costFunc)
                 # Update the personal best position and fitness values for population
@@ -154,7 +154,7 @@ class CLPSO():
                     self.err_best_g_record[j] = float(swarm[j].err_i)
                 else:
                     self.mintSinceLastChange[j] += 1
-                # determine if current particle is the best (globally)
+                # Determine if current particle is the best (globally)
                 if swarm[j].err_i < self.err_best_g: 
                     self.pos_best_g = list(swarm[j].position_i)
                     self.err_best_g = float(swarm[j].err_i)
