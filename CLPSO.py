@@ -79,7 +79,7 @@ class CLPSO():
         self.f_pbest = []; self.pbest_f = []; self.pbest_f_1 = []; self.Pc = []
         fi1 = [0]*num_dimensions; fi2 = [0]*num_dimensions; fi = [0]*num_dimensions
         bi1 = 0; self.bi = [0]*num_dimensions; self.mintSinceLastChange = [0]*num_particles
-        mintNuC = 5; mdblI = 0; self.best_position = 0
+        mintNuC = 5; mdblI = 0
         
         # Determine learning probability Pc
         t=np.linspace(0,5,num_particles)
@@ -160,8 +160,6 @@ class CLPSO():
                     self.err_best_g = float(swarm[j].err_i)
             self.global_best_all_iteration.append(self.err_best_g)
             i+=1
-            
-        self.best_position = self.pos_best_g
         
         # Final results
         print('FINAL RESULTS:', self.pos_best_g, '---', self.err_best_g)
