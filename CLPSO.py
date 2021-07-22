@@ -10,11 +10,8 @@
 import random
 import math
 import numpy as np
-from numpy.linalg import norm
-from scipy.linalg import eigh
 import matplotlib.pyplot as plt 
 import sys
-import scipy
 import itertools
 
 #--- COST FUNCTION 
