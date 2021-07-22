@@ -12,7 +12,6 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt 
 import sys
-import itertools
 
 #--- COST FUNCTION 
 # Function we are attempting to optimize (minimize)
