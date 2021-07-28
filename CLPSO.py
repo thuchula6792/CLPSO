@@ -20,7 +20,7 @@ def func1(x):
  
 #--- MAIN 
 class Particle:
-    def __init__(self,x0):
+    def __init__(self):
         self.position_i=[]          # particle position
         self.velocity_i=[]          # particle velocity
         self.pos_best_i=[]          # best position individual
@@ -81,7 +81,7 @@ class CLPSO():
         t=np.linspace(0,5,num_particles)
         swarm=[]
         for i in range(0,num_particles):
-            swarm.append(Particle(x0))   
+            swarm.append(Particle())   
             self.Pc.append(0+0.5*(np.exp(t[i])-np.exp(t[0]))/(np.exp(5)-np.exp(t[0])))
             self.f_pbest.append([i]*num_dimensions)
             
