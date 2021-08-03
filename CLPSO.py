@@ -107,7 +107,7 @@ class CLPSO():
                   self.bi1 = random.random() - 1 + Pc[v]
                   self.bi[z] = np.where(self.bi1 >= 0, 1, 0).tolist()   
                if np.sum(self.bi) == 0:
-                rc = round(random.uniform(0,1)*(num_dimensions - 1))
+                  rc = round(random.uniform(0,1)*(num_dimensions - 1))
                   self.bi[rc] = 1
                for m in range(0,num_dimensions):
                   f_pbest[v][m] = self.bi[m]*self.fi[m] + (1 - self.bi[m])*f_pbest[v][m]
