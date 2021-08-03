@@ -100,7 +100,7 @@ class CLPSO():
         self.f_pbest = self.Comprehensive_learning(self.num_particles, self.Pc, self.err_best_g_record, self.f_pbest)   
             
     def Comprehensive_learning(self, num_particles, Pc, err_best_g_record, f_pbest):
-        # Generate exemplar for each dimension
+        # Generate exemplars for each dimension
         for v in range(0, num_particles):
             if self.mintSinceLastChange[v] > self.mintNuC:
                self.mintSinceLastChange[v] = 0
