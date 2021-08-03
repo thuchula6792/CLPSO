@@ -10,8 +10,6 @@
 import random
 import math
 import numpy as np
-import matplotlib.pyplot as plt 
-import sys
 
 #--- COST FUNCTION 
 # Function we are attempting to optimize (minimize)
@@ -66,7 +64,6 @@ class Particle:
            
 class CLPSO():
     def __init__(self, costFunc, x0, bounds, num_particles, maxiter):
-        
         global num_dimensions
         self.num_particles = num_particles
         self.maxiter = maxiter
@@ -86,7 +83,8 @@ class CLPSO():
             self.swarm.append(Particle())   
             self.Pc.append(0 + 0.5*(np.exp(t[i]) - np.exp(t[0])) / (np.exp(5) - np.exp(t[0])))
             self.f_pbest.append([i]*num_dimensions)
-            
+        
+        # Evaluate fitness
         for k in range(0, self.num_particles):
             self.swarm[k].evaluate(costFunc)
             
@@ -98,7 +96,6 @@ class CLPSO():
             self.pbest_f.append(self.swarm[k].position_i)
             
     def Comprehensive_learning(self, num_particles, Pc, err_best_g_record, f_pbest):
-        
         # Generate exemplar for each dimension
         for v in range(0, num_particles):
             if self.mintSinceLastChange[v] > self.mintNuC:
@@ -114,7 +111,6 @@ class CLPSO():
                 self.bi[rc] = 1
             for m in range(0,num_dimensions):
                 f_pbest[v][m] = self.bi[m]*self.fi[m] + (1 - self.bi[m])*f_pbest[v][m]
-                
         return f_pbest
         
     def Run(self, costFunc):  
@@ -155,7 +151,6 @@ class CLPSO():
                     self.err_best_g = float(self.swarm[j].err_i)
             self.global_best_all_iteration.append(self.err_best_g)
             i+=1
-
         # Final results
         print('FINAL RESULTS:', self.pos_best_g, '---', self.err_best_g)
         
