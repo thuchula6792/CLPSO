@@ -35,7 +35,7 @@ class Particle:
         
     # Evaluate current fitness
     def evaluate(self, costFunc):
-        self.err_i = costFunc(self.position_i)  
+        self.err_i = costFunc(self.position_i)
         # check to see if the current position is an individual best
         if self.err_i < self.err_best_i: 
             self.pos_best_i = self.position_i   
@@ -43,8 +43,8 @@ class Particle:
             
     # Update new particle velocity
     def update_velocity(self, pbest_f, pos_best_g, bounds, mdblI):
-        c1=2        # cognative constant
-        c2=2        # social constant
+        c1 = 2        # cognative constant
+        c2 = 2        # social constant
         for i in range(0, num_dimensions):
             r1=random.random()
             r2=random.random()
@@ -62,104 +62,104 @@ class Particle:
                 self.position_i[i] = bounds[i][1]
             # Adjust minimum position if neseccary
             if self.position_i[i] < bounds[i][0]:
-                self.position_i[i] = bounds[i][0]
-                
+                self.position_i[i] = bounds[i][0]      
+        
 class CLPSO():
-    def __init__(self,costFunc,x0,bounds,num_particles,maxiter):
+    def __init__(self, costFunc, x0, bounds, num_particles, maxiter):
         
         global num_dimensions
+        self.num_particles = num_particles
+        self.maxiter = maxiter
         num_dimensions = len(x0); self.err_best_g = 10000000; self.pos_best_g = []                   
         self.pos_best_g_record = []; self.pos_best_g_record_1 = []
         self.err_best_g_record = []
         self.global_best_all_iteration = []; self.iteration = []
         self.f_pbest = []; self.pbest_f = []; self.pbest_f_1 = []; self.Pc = []
-        fi1 = [0]*num_dimensions; fi2 = [0]*num_dimensions; fi = [0]*num_dimensions
-        bi1 = 0; self.bi = [0]*num_dimensions; self.mintSinceLastChange = [0]*num_particles
-        mintNuC = 5; mdblI = 0
+        self.fi1 = [0]*num_dimensions; self.fi2 = [0]*num_dimensions; self.fi = [0]*num_dimensions
+        self.bi1 = 0; self.bi = [0]*num_dimensions; self.mintSinceLastChange = [0]*num_particles
+        self.mintNuC = 5; self.mdblI = 0
         
-        # Determine learning probability Pc
-        t=np.linspace(0,5,num_particles)
-        swarm=[]
+        # Learning probability Pc
+        t=np.linspace(0,5,self.num_particles)
+        self.swarm=[]
         for i in range(0,num_particles):
-            swarm.append(Particle())   
+            self.swarm.append(Particle())   
             self.Pc.append(0+0.5*(np.exp(t[i])-np.exp(t[0]))/(np.exp(5)-np.exp(t[0])))
             self.f_pbest.append([i]*num_dimensions)
             
-        for k in range(0,num_particles):
-            swarm[k].evaluate(costFunc)
-            if swarm[k].err_i < self.err_best_g:  
-                self.pos_best_g = list(swarm[k].position_i)
-                self.err_best_g = float(swarm[k].err_i)
-            self.pos_best_g_record.append(swarm[k].pos_best_i)
-            self.err_best_g_record.append(swarm[k].err_best_i)
-            self.pbest_f.append(swarm[k].position_i)
+        for k in range(0,self.num_particles):
+            self.swarm[k].evaluate(costFunc)
             
+            if self.swarm[k].err_i < self.err_best_g:  
+                self.pos_best_g = list(self.swarm[k].position_i)
+                self.err_best_g = float(self.swarm[k].err_i)
+            self.pos_best_g_record.append(self.swarm[k].pos_best_i)
+            self.err_best_g_record.append(self.swarm[k].err_best_i)
+            self.pbest_f.append(self.swarm[k].position_i)
+            
+        self.f_pbest = self.Comprehensive_learning(self.num_particles, self.Pc, self.err_best_g_record, self.f_pbest)   
+            
+    def Comprehensive_learning(self, num_particles, Pc, err_best_g_record, f_pbest):
+        # Generate exemplar for each dimension
         for v in range(0, num_particles):
-            for z in range(0,num_dimensions): 
-                 fi1[z] = math.ceil(random.uniform(0,1)*(num_particles-1))
-                 fi2[z] = math.ceil(random.uniform(0,1)*(num_particles-1))
-                 fi[z] = np.where(self.err_best_g_record[fi1[z]] < self.err_best_g_record[fi2[z]], fi1[z], fi2[z]).tolist()
-                 bi1 = random.random() - 1 + self.Pc[v]
-                 self.bi[z] = np.where(bi1 >= 0, 1, 0).tolist()
+            if self.mintSinceLastChange[v] > self.mintNuC:
+               self.mintSinceLastChange[v] = 0
+            for z in range(0, num_dimensions): 
+                 self.fi1[z] = math.ceil(random.uniform(0,1)*(num_particles-1))
+                 self.fi2[z] = math.ceil(random.uniform(0,1)*(num_particles-1))
+                 self.fi[z] = np.where(err_best_g_record[self.fi1[z]] < err_best_g_record[self.fi2[z]], self.fi1[z], self.fi2[z]).tolist()
+                 self.bi1 = random.random() - 1 + Pc[v]
+                 self.bi[z] = np.where(self.bi1 >= 0, 1, 0).tolist()   
             if np.sum(self.bi) == 0:
                 rc = round(random.uniform(0,1)*(num_dimensions-1))
                 self.bi[rc] = 1
             for m in range(0,num_dimensions):
-                self.f_pbest[v][m] = self.bi[m]*fi[m] + (1-self.bi[m])*self.f_pbest[v][m]
+                f_pbest[v][m] = self.bi[m]*self.fi[m] + (1 - self.bi[m])*f_pbest[v][m]
                 
+        return f_pbest
+        
+    def Run(self, costFunc):  
         i=0
-        while i < maxiter:
+        while i < self.maxiter:
             self.iteration.append(i)
             self.pos_best_g_record_1 = np.copy(self.pos_best_g_record)
             self.pbest_f_1=np.copy(self.pbest_f)
             
-            for j in range(0,num_particles):
-                 if self.mintSinceLastChange[j] > mintNuC:
-                    self.mintSinceLastChange[j] = 0
-                    
-                    for k in range(0,num_dimensions):
-                         fi1[k] = math.ceil(random.uniform(0,1)*(num_particles-1))
-                         fi2[k] = math.ceil(random.uniform(0,1)*(num_particles-1))
-                         fi[k] = np.where(self.err_best_g_record[fi1[k]] < self.err_best_g_record[fi2[k]], fi1[k], fi2[k]).tolist()
-                         bi1 = random.uniform(0,1) - 1 + self.Pc[j]
-                         self.bi[k] = np.where(bi1>=0, 1, 0).tolist()
-                    if np.sum(self.bi) == 0:
-                         rc = round(random.uniform(0,1)*(num_dimensions-1))
-                         self.bi[rc] = 1
-                    for m in range(0,num_dimensions):
-                         self.f_pbest[j][m] = self.bi[m]*fi[m] + (1-self.bi[m])*self.f_pbest[j][m] 
-                         
-            for j in range(0,num_particles):
+            # Perform comprehensive learning strategy
+            self.f_pbest = self.Comprehensive_learning(self.num_particles, self.Pc, self.err_best_g_record, self.f_pbest)
+            
+            # Learning from exemplars
+            for j in range(0, self.num_particles):
                  for k in range(0,num_dimensions):
                          index_1 = self.f_pbest[j][k]
                          self.pbest_f_1[j,k] = self.pos_best_g_record_1[index_1, k]
             self.pbest_f = self.pbest_f_1.tolist()
             
             # Cycle through swarm and update velocities and position
-            mdblI = 0.9 - (0.9 - 0.4) * i / maxiter
-            for j in range(0,num_particles):
-                swarm[j].update_velocity(self.pbest_f[j], self.pos_best_g, bounds, mdblI)
-                swarm[j].update_position(bounds)
+            self.mdblI = 0.9 - (0.9 - 0.4) * i / self.maxiter
+            for j in range(0, self.num_particles):
+                self.swarm[j].update_velocity(self.pbest_f[j], self.pos_best_g, bounds, self.mdblI)
+                self.swarm[j].update_position(bounds)
                 
             # Cycle through particles in swarm and evaluate fitness
-            for j in range(0,num_particles):
-                swarm[j].evaluate(costFunc)
+            for j in range(0, self.num_particles):
+                self.swarm[j].evaluate(costFunc)
                 # Update the personal best position and fitness values for population
-                if swarm[j].err_i < self.err_best_g_record[j]:
-                    self.pos_best_g_record[j] = list(swarm[j].position_i)
-                    self.err_best_g_record[j] = float(swarm[j].err_i)
+                if self.swarm[j].err_i < self.err_best_g_record[j]:
+                    self.pos_best_g_record[j] = list(self.swarm[j].position_i)
+                    self.err_best_g_record[j] = float(self.swarm[j].err_i)
                 else:
                     self.mintSinceLastChange[j] += 1
                 # Determine if current particle is the best (globally)
-                if swarm[j].err_i < self.err_best_g: 
-                    self.pos_best_g = list(swarm[j].position_i)
-                    self.err_best_g = float(swarm[j].err_i)
+                if self.swarm[j].err_i < self.err_best_g: 
+                    self.pos_best_g = list(self.swarm[j].position_i)
+                    self.err_best_g = float(self.swarm[j].err_i)
             self.global_best_all_iteration.append(self.err_best_g)
             i+=1
-        
         # Final results
         print('FINAL RESULTS:', self.pos_best_g, '---', self.err_best_g)
-        
-initial=[-1, 1]   # initial starting location [x1,x2...]
+          
+initial=[-1, 1]   # Initial starting location [x1,x2...]
 bounds=[(-2.08, 2.08),(-2.08, 2.08)] 
-t = CLPSO(func1, initial, bounds, num_particles=10, maxiter=500)
+t = CLPSO(func1, initial, bounds, num_particles=20, maxiter=500)
+t.Run(func1)
