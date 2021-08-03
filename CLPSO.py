@@ -14,7 +14,7 @@ import numpy as np
 #--- COST FUNCTION 
 # Function we are attempting to optimize (minimize)
 def func1(x):
-     return 100*(x[1]-x[0]**2)**2 + (1-x[0])**2
+     return 100*(x[1] - x[0]**2)**2 + (1 - x[0])**2
  
 #--- MAIN 
 class Particle:
@@ -23,7 +23,7 @@ class Particle:
         self.velocity_i = []          # particle velocity
         self.pos_best_i = []          # best position individual
         self.pos_best_i_record = []   # particles x dimensions NP*D
-        self.err_best_i = 1000000    # best error individual
+        self.err_best_i = 1000000     # best error individual
         self.err_best_i_record = []
         self.err_i = -1               # error individual
         for i in range(0, num_dimensions):
@@ -34,7 +34,7 @@ class Particle:
     # Evaluate current fitness
     def evaluate(self, costFunc):
         self.err_i = costFunc(self.position_i)
-        # check to see if the current position is an individual best
+        # Check to see if the current position is an individual best
         if self.err_i < self.err_best_i: 
             self.pos_best_i = self.position_i   
             self.err_best_i = self.err_i     
@@ -84,7 +84,7 @@ class CLPSO():
             self.Pc.append(0 + 0.5*(np.exp(t[i]) - np.exp(t[0])) / (np.exp(5) - np.exp(t[0])))
             self.f_pbest.append([i]*num_dimensions)
         
-        # Evaluate fitness
+        # Initially evaluate fitness function
         for k in range(0, self.num_particles):
             self.swarm[k].evaluate(costFunc)
             
