@@ -100,17 +100,17 @@ class CLPSO():
         for v in range(0, num_particles):
             if self.mintSinceLastChange[v] > self.mintNuC:
                self.mintSinceLastChange[v] = 0
-            for z in range(0, num_dimensions): 
-                 self.fi1[z] = math.ceil(random.uniform(0,1)*(num_particles-1))
-                 self.fi2[z] = math.ceil(random.uniform(0,1)*(num_particles-1))
-                 self.fi[z] = np.where(err_best_g_record[self.fi1[z]] < err_best_g_record[self.fi2[z]], self.fi1[z], self.fi2[z]).tolist()
-                 self.bi1 = random.random() - 1 + Pc[v]
-                 self.bi[z] = np.where(self.bi1 >= 0, 1, 0).tolist()   
-            if np.sum(self.bi) == 0:
+               for z in range(0, num_dimensions): 
+                  self.fi1[z] = math.ceil(random.uniform(0,1)*(num_particles-1))
+                  self.fi2[z] = math.ceil(random.uniform(0,1)*(num_particles-1))
+                  self.fi[z] = np.where(err_best_g_record[self.fi1[z]] < err_best_g_record[self.fi2[z]], self.fi1[z], self.fi2[z]).tolist()
+                  self.bi1 = random.random() - 1 + Pc[v]
+                  self.bi[z] = np.where(self.bi1 >= 0, 1, 0).tolist()   
+               if np.sum(self.bi) == 0:
                 rc = round(random.uniform(0,1)*(num_dimensions - 1))
-                self.bi[rc] = 1
-            for m in range(0,num_dimensions):
-                f_pbest[v][m] = self.bi[m]*self.fi[m] + (1 - self.bi[m])*f_pbest[v][m]
+                  self.bi[rc] = 1
+               for m in range(0,num_dimensions):
+                  f_pbest[v][m] = self.bi[m]*self.fi[m] + (1 - self.bi[m])*f_pbest[v][m]
         return f_pbest
         
     def Run(self, costFunc):  
