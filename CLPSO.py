@@ -5,7 +5,7 @@
 #            Applied Mechanics and Structures Research Unit, Department of Civil Engineering, 
 #            Chulalongkorn University """
 # Research paper: Two-Phase ESO-CLPSO Method for the Optimal Design of Structures 
-# with Discrete Steel Sections (2021) """
+# with Discrete Steel Sections (2021). https://doi.org/10.1016/j.advengsoft.2022.103102 "Advances in Engineering Software"
 # ***************************************************************************************#
 import random
 import math
