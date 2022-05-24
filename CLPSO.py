@@ -1,6 +1,6 @@
 ################# COMPREHENSIVE_LEARNING_PARTICLE_SWARM_OPTIMIZATION-(CLPSO) #############
 # ***************************************************************************************#
-""" Author:  Ph.D Thu Huynh Van, Assist. Prof. Sawekchai Tangaramvong 
+""" Author:  Ph.D Thu Huynh Van, Assoc. Prof. Sawekchai Tangaramvong 
 #   Emails:  thuxd11@gmail.com, Sawekchai.T@chula.ac.th
 #            Applied Mechanics and Structures Research Unit, Department of Civil Engineering, 
 #            Chulalongkorn University """
