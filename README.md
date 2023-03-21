@@ -9,4 +9,6 @@ Our recent work successfully applied an outstanding variant version of the PSO, 
 
 [2] Van Thu Huynh, Tangaramvong S, S. Muong, and P. T. Van (2022), Combined Gaussian local search and enhanced comprehensive learning PSO algorithm for size and shape optimization of truss structures, _Buildings_, 12-1976. 
 
-[3] Van Thu Huynh, Tangaramvong, S., Do, B., Gao, W., & Limkatanyu, S. (2023). Sequential Most Probable Point Update Combining Gaussian Process and Comprehensive Learning PSO for Structural Reliability-Based Design Optimization. _Reliability Engineering & System Safety_, 109164.
+[3] Ei Cho Pyone, Van Thu Huynh, Tangaramvong, S., Linh Van Hong Bui, & Wei Gao (2023). Comprehensive Learning Phasor Particle Swarm Optimization of Structures under Limited Natural Frequency Conditions. _Acta Mechanica Sinica_, 39, 722386.
+
+[4] Van Thu Huynh, Tangaramvong, S., Do, B., Gao, W., & Limkatanyu, S. (2023). Sequential Most Probable Point Update Combining Gaussian Process and Comprehensive Learning PSO for Structural Reliability-Based Design Optimization. _Reliability Engineering & System Safety_, 109164.
