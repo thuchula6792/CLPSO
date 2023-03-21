@@ -6,5 +6,7 @@ Our recent work successfully applied an outstanding variant version of the PSO, 
 ![1](https://user-images.githubusercontent.com/65479151/226549989-bc7d092e-2156-4e2b-9d51-808cfbd94ece.jpg)
 
 [1] Van Thu Huynh, Tangaramvong S, Limkatanyu S, Xuan HN (2022). Two-phase ESO and comprehensive learning PSO method for structural optimization with discrete steel sections. _Advances in Engineering Software_. 167:103102.
+
 [2] Van Thu Huynh, Tangaramvong S, S. Muong, and P. T. Van (2022), Combined Gaussian local search and enhanced comprehensive learning PSO algorithm for size and shape optimization of truss structures, _Buildings_, 12-1976. 
+
 [3] Van Thu Huynh, Tangaramvong, S., Do, B., Gao, W., & Limkatanyu, S. (2023). Sequential Most Probable Point Update Combining Gaussian Process and Comprehensive Learning PSO for Structural Reliability-Based Design Optimization. _Reliability Engineering & System Safety_, 109164.
