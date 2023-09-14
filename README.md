@@ -18,3 +18,5 @@ Author's Publications:
 [4] Ei Cho Pyone, Van Thu Huynh, Sawekchai Tangaramvong, Linh Van Hong Bui, & Wei Gao (2023). Comprehensive Learning Phasor Particle Swarm Optimization of Structures under Limited Natural Frequency Conditions. _Acta Mechanica Sinica_, 39, 722386.
 
 [5] Van Thu Huynh, Sawekchai Tangaramvong, Bach Do, Wei Gao, & Limkatanyu, S. (2023). Sequential Most Probable Point Update Combining Gaussian Process and Comprehensive Learning PSO for Structural Reliability-Based Design Optimization. _Reliability Engineering & System Safety_, 109164.
+
+[6] Van Thu Huynh, Sawekchai Tangaramvong, Wei Gao, & Limkatanyu, S. (2023). Chaotic Heterogeneous Comprehensive Learning PSO Method for Size and Shape Optimization of Structures. _Engineering Applications of Artificial Intelligence_, 107014.
